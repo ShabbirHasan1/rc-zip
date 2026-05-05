@@ -204,6 +204,11 @@ impl<'a, F> EntryHandle<'a, F>
 where
     F: HasCursor,
 {
+    /// Get the underlying `Entry`
+    pub fn entry(&self) -> &'a Entry {
+        self.entry
+    }
+
     /// Returns a reader for the entry.
     pub fn reader(&self) -> impl AsyncRead + Unpin + '_ {
         EntryReader::new(self.entry, |offset| self.file.cursor_at(offset))
