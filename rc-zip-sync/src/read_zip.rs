@@ -189,6 +189,10 @@ impl<'a, F> EntryHandle<'a, F>
 where
     F: HasCursor,
 {
+    /// Get the underlying `Entry`
+    pub fn entry(&self) -> &'a Entry {
+        self.entry
+    }
     /// Returns a reader for the entry.
     pub fn reader(&self) -> EntryReader<<F as HasCursor>::Cursor<'a>> {
         EntryReader::new(self.entry, self.file.cursor_at(self.entry.header_offset))

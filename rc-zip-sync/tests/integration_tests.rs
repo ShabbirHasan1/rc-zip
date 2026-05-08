@@ -35,6 +35,12 @@ fn read_from_slice() {
     let slice = &bytes[..];
     let archive = slice.read_zip().unwrap();
     assert_eq!(archive.entries().count(), 2);
+
+    // test that we can build an iterator over file names
+    fn consume_file_names<'a>(file_names: impl Iterator<Item = &'a String>) {
+        assert_eq!(file_names.count(), 2);
+    }
+    consume_file_names(archive.entries().map(|entr| &entr.entry().name));
 }
 
 #[test]
